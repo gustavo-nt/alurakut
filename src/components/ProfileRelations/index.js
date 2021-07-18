@@ -26,7 +26,7 @@ const ProfileRelationsBox = styled(Box)`
         border-radius: 8px;
 
         span {
-            color: #ffffff;
+            color: #FFF;
             font-size: 10px;
             position: absolute;
             left: 0;

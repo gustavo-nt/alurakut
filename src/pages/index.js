@@ -1,21 +1,25 @@
+import nookies from 'nookies';
+import jwt from 'jsonwebtoken';
 import Box from '../components/Box';
 import Menu from '../components/Menu';
 import MainGrid from '../components/MainGrid';
+import Dropzone from '../components/Dropzone';
 import ProfileRelationsBox from '../components/ProfileRelations';
 import OrkutNostalgicIconSet from '../components/OrkutNostalgicIconSet';
 import MenuProfileSidebar from '../components/MenuProfileSidebar';
 import { useEffect, useState } from 'react';
 
-export default function Home() {
-    const githubUser = 'gustavo-nt';
+export default function Home(props) {
+    const githubUser = props.githubUser;
     const [followers, setFollowers] = useState([]);
+    const [selectedFile, setSelectedFile] = useState('');
     const [communities, setCommunities] = useState([]);
     const favoriteUsers = ['facebook', 'react', 'magento', 'nodejs'];
 
-    useEffect(function() {
+    useEffect(function () {
         fetch(`https://api.github.com/users/${githubUser}/followers`)
-        .then((res) => res.json())
-        .then((res) => setFollowers(res.splice(0,6))); 
+            .then((res) => res.json())
+            .then((res) => setFollowers(res.splice(0, 6)));
 
         fetch('https://graphql.datocms.com/', {
             method: 'POST',
@@ -24,7 +28,8 @@ export default function Home() {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },
-            body: JSON.stringify({"query": `query {
+            body: JSON.stringify({
+                "query": `query {
                 allCommunities{
                     id
                     title
@@ -33,9 +38,9 @@ export default function Home() {
                 }
             }`})
         })
-        .then((res) => res.json())
-        .then((res) => setCommunities(res.data.allCommunities));
-    },[])
+            .then((res) => res.json())
+            .then((res) => setCommunities(res.data.allCommunities));
+    }, [])
 
     return (
         <>
@@ -75,8 +80,8 @@ export default function Home() {
                                 },
                                 body: JSON.stringify(community),
                             }).then(async (res) => {
-                                const data = await res.json();
-                                setCommunities([...communities, data.record]);
+                                const json = await res.json();
+                                setCommunities([...communities, json.data]);
                             })
                         }}>
                             <div>
@@ -89,11 +94,20 @@ export default function Home() {
                             </div>
                             <div>
                                 <input
-                                    placeholder="Coloque uma URL para usarmos de capa"
+                                    type="text"
                                     name="image"
-                                    aria-label="Coloque uma URL para usarmos de capa"
+                                    value={selectedFile}
+                                    onChange={e => setSelectedFile(e.target.value)}
+                                    aria-label="Coloque uma url para usar de capa"
+                                    placeholder="Coloque uma url para usar de capa"
                                 />
                             </div>
+                            <Dropzone
+                                imageUrl={selectedFile}
+                                onRemove={() => {
+                                    setSelectedFile('');
+                                }}
+                            />
                             <button>
                                 Criar comunidade
                             </button>
@@ -102,8 +116,8 @@ export default function Home() {
                 </div>
                 <div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>
                     <ProfileRelationsBox>
-                        <h2>
-                            Seguidores {followers.length}
+                        <h2 className="smallTitle">
+                            Seguidores ({followers.length})
                         </h2>
                         <ul>
                             {followers.map((item) => {
@@ -120,6 +134,9 @@ export default function Home() {
                     </ProfileRelationsBox>
 
                     <ProfileRelationsBox>
+                        <h2 className="smallTitle">
+                            Comunidades ({communities.length})
+                        </h2>
                         <ul>
                             {communities.map((item) => {
                                 return (
@@ -135,7 +152,9 @@ export default function Home() {
                     </ProfileRelationsBox>
 
                     <ProfileRelationsBox>
-                        Pessoas da comunidade
+                        <h2 className="smallTitle">
+                            Pessoas da Comunidade ({favoriteUsers.length})
+                        </h2>
 
                         <ul>
                             {favoriteUsers.map((item) => {
@@ -143,7 +162,7 @@ export default function Home() {
                                     <li key={item}>
                                         <a href={`user/${item}`} >
                                             <img src={`https://github.com/${item}.png`} />
-                                            <span>{githubUser}</span>
+                                            <span>{item}</span>
                                         </a>
                                     </li>
                                 )
@@ -154,4 +173,31 @@ export default function Home() {
             </MainGrid>
         </>
     )
+}
+
+export const getServerSideProps = async (ctx) => {
+    const cookies = nookies.get(ctx);
+    const token = cookies.USER_TOKEN;
+    const { isAuthenticated } = await fetch('https://alurakut.vercel.app/api/auth', {
+        headers: {
+            Authorization: token
+        }
+    })
+        .then((res) => res.json());
+
+    if (!isAuthenticated) {
+        return {
+            redirect: {
+                destination: '/login',
+                permanent: false
+            }
+        }
+    }
+
+    const { githubUser } = jwt.decode(token);
+    return {
+        props: {
+            githubUser
+        }
+    }
 }

@@ -11,11 +11,11 @@ export default function Menu({ githubUser }) {
     return (
         <Wrapper isMenuOpen={isMenuOpen}>
             <div className="container">
-                <Logo src={`${BASE_URL}/logo.svg`} />
+                <Logo src={`/logo-small.png`} />
 
                 <nav style={{ flex: 1 }}>
                     {[{ name: 'Inicio', slug: '/' }, { name: 'Amigos', slug: '/amigos' }, { name: 'Comunidades', slug: '/comunidades' }].map((menuItem) => (
-                        <Link key={`key__${menuItem.name.toLocaleLowerCase()}`} href={`${menuItem.slug.toLocaleLowerCase()}`}>
+                        <Link key={`key__${menuItem.name.toLocaleLowerCase()}`} href={'#'}>
                             {menuItem.name}
                         </Link>
                     ))}

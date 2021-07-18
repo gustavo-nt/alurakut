@@ -9,7 +9,7 @@ export const List = styled.ul`
 
     li {
         font-size: 12px;
-        color: #5A5A5A;
+        color: #FFF;
         display: grid;
         grid-template-areas: "title title" "number number"; 
         

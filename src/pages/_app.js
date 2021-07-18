@@ -1,5 +1,5 @@
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
-import { Styles } from '../styles';
+// import { Styles } from '../styles';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -10,7 +10,7 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: sans-serif;
-    background-color: #D9E6F6;
+    background-color: #171029;
   }
 
   #__next {
@@ -24,8 +24,6 @@ const GlobalStyle = createGlobalStyle`
     height: auto;
     display: block;
   }
-
-  ${Styles}
 `
 
 const theme = {

@@ -3,10 +3,10 @@ import { BASE_URL } from '../../utils/variables';
 
 export const Wrapper = styled.header`
     width: 100%;
-    background-color: #308BC5;
+    background-color: #201b2c;
 
     .menuProfileSidebar {
-        background: white;
+        background: #171029;
         position: fixed;
         z-index: 100;
         padding: 46px;
@@ -26,6 +26,10 @@ export const Wrapper = styled.header`
         > div {
             max-width: 400px;
             margin: auto;
+
+            img {
+                max-width: 200px;
+            }
         }
 
         a {
@@ -34,7 +38,7 @@ export const Wrapper = styled.header`
 
         .boxLink {
             font-size: 18px;
-            color: #2E7BB4;
+            color: #FFF;
             -webkit-text-decoration: none;
             text-decoration: none;
             font-weight: 800;
@@ -49,12 +53,12 @@ export const Wrapper = styled.header`
     }
 
     .container {
-        background-color: #308BC5;
         padding: 7px 16px;
         max-width: 1110px;
         margin: auto;
         display: flex;
         justify-content: space-between;
+        align-items: center;
         position: relative;
         z-index: 101;
 
@@ -67,6 +71,7 @@ export const Wrapper = styled.header`
             background: transparent;
             align-self: center;
             display: inline-block;
+            cursor: pointer;
 
             @media(min-width: 860px) {
                 display: none;
@@ -81,39 +86,29 @@ export const Wrapper = styled.header`
             }
 
             a {
-            font-size: 12px;
-            color: white;
-            padding: 10px 16px;
-            position: relative;
-            text-decoration: none;
-                &:after {
-                    content: " ";
-                    background-color: #5292C1;
-                    display: block;
-                    position: absolute;
-                    width: 1px;
-                    height: 12px;
-                    margin: auto;
-                    left: 0;
-                    top: 0;
-                    bottom: 0;
-                }
+                font-size: 12px;
+                color: white;
+                padding: 10px 16px;
+                position: relative;
+                text-decoration: none;
             }
         }
 
         input {
-            color: #ffffff;
-            background: #5579A1;
+            background-color: #514869;
+            color: #F0FFFFDE;
             padding: 10px 42px;
             border: 0;
+            box-shadow: 0px 10px 40px #00000056;
             background-image: url(${`${BASE_URL}/icons/search.svg`});
             background-position: 15px center;
             background-repeat: no-repeat;
-            border-radius: 1000px;
+            border-radius: 10px;
             font-size: 12px;
+            outline: none;
 
-            ::placeholder {
-                color: #ffffff;
+            &::placeholder {
+                color: #F0FFFFDE;
                 opacity: 1;
             }
         } 
@@ -121,8 +116,6 @@ export const Wrapper = styled.header`
 `;
 
 export const Logo = styled.img`
-    background-color: #ffffff;
-    padding: 9px 14px;
-    border-radius: 1000px;
-    height: 34px;
+    height: 23px;
+    padding-right: 10px;
 `;
