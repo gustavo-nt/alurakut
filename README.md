@@ -39,7 +39,7 @@
 O Alurakut é uma aplicação baseada nos conceitos desenvolvidos pelo Orkut, rede social muito utilizado entre 2004 e 2014, ano da sua desativação. Portanto, o Alurakut, busca resgatar alguns principios, além de possibilitar a criação de comunidades de um determinado assunto. Esse Projeto foi desenvolvido durante a semana da Imersão React da Alura. 
 
 ### ✅ Demonstração
-<img src="https://github.com/gustavo-nt/podcastr/blob/main/public/thumbnail.png" />
+<img src="https://github.com/gustavo-nt/alurakut/blob/main/public/thumbnail.png" />
 
 ### ⚙ Pré-requisitos
 
