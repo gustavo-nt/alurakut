@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import nookies from 'nookies';
 import jwt from 'jsonwebtoken';
 import Box from '../components/Box';
@@ -44,6 +45,11 @@ export default function Home(props) {
 
     return (
         <>
+            <Head>
+                <title>Alurakut | Home</title>
+                <link rel="icon" href="/logo-small.png" />
+            </Head>
+            
             <Menu githubUser={githubUser} />
 
             <MainGrid>
