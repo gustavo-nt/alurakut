@@ -28,6 +28,7 @@
 
 ### 📎 Features 
 
+- [x] Tela de Login e Logout
 - [x] Cadastro de Comunidades
 - [x] Preview da Imagem da Comunidade
 - [x] Perfil de Seguidores
